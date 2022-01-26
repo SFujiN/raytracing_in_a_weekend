@@ -35,5 +35,7 @@ int main() {
 	}
 
 	helloFile.close();
+
+	std::cerr << "\nDone.\n";
 	return(0);
 }
