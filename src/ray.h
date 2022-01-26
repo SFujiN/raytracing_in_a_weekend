@@ -3,7 +3,7 @@
 
 #include "vec3.h"
 
-stuct ray
+typedef struct ray
 {
 	point3 orig;
 	vec3 dir;
