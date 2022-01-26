@@ -116,7 +116,7 @@ typedef struct vec3
 
 	//!	length function to return the length of current vec3.
 	/*!
-	 	\param double representing the length of the current vector.
+	 	\param t double representing the length of the current vector.
 	*/
 	double length() const
 	{
@@ -134,44 +134,91 @@ typedef struct vec3
 
 } point3, color;
 
-// TODO: the rest of the documentation
 // vec3 Utility Functions
 
+//!	overloaded operator for << output streams, basically outputing a vec3 in 'x y z' format.
+/*!
+	\param out the output stream.
+	\param v the vec3 that is to be outputed.
+	\return the stream with the vec3 outputed in 'x y z' format.
+*/
 inline std::ostream& operator<<(std::ostream &out, const vec3 &v)
 {
 	return out << v.e[0] << ' ' << v.e[1]<< ' ' << v.e[2];
 }
 
+//!	overloaded + addition operator for adding two vectors together.
+/*!
+	\param u the left hand side vec3.
+	\param v the right hand side vec3.
+	\return a vec3 that represents the addition of vectors u + v.
+*/
 inline vec3 operator+(const vec3 &u, const vec3 &v)
 {
 	return vec3(u.e[0] + v.e[0], u.e[1] + v.e[1], u.e[2] + v.e[2]);
 }
 
+//!	overloaded - subtraction operator for subtracting two vectors together.
+/*!
+ 	\param u the left hand side vec3.
+	\param v the right hand side vec3.
+	\return a vec3 representing the subtraction of u - v.
+*/
 inline vec3 operator-(const vec3 &u, const vec3 &v)
 {
 	return vec3(u.e[0] - v.e[0], u.e[1] - v.e[1], u.e[2] - v.e[2]);
 }
 
+//!	overloaded * multiplication operator for multiplying two vectors together. I honestly have no idea why you'd do it this way.
+/*!
+ 	\param u the left hand side vec3.
+	\param v the right hand side vec3.
+	\return a vec3 where its x = u.e[0] * v.e[0], y = u.e[1] * v.e[1], and z = u.e[2] * v.e[2].
+*/
 inline vec3 operator*(const vec3 &u, const vec3 &v)
 {
 	return vec3(u.e[0] * v.e[0], u.e[1] * v.e[1], u.e[2] * v.e[2]);
 }
 
+//!	overloaded * multiplication operator for multipying a scalar and a vector together.
+/*!
+	\param t double to represent the left hand scalar.
+	\param v vec3 to represent the right hand vector.
+	\return a vec3 scaled by up a factor of t.
+*/
 inline vec3 operator*(double t, const vec3 &v)
 {
 	return vec3(t * v.e[0], t * v.e[1], t * v.e[2]);
 }
 
+//!	overloaded * multiplication operator for multiplying a vector with a scalar in that order.
+/*!
+	\param v vec3 to represent the left hand vector.
+	\param t double to represent the right hand scalar.
+	\return a vec3 scaled up by a factor of t.
+*/
 inline vec3 operator*(const vec3 &v, double t)
 {
 	return t * v;
 }
 
+//!	overloaded / division operator for dividing a vector by a scalar.
+/*!
+	\param v vec3 to represent the left hand vectors.
+	\param t double to represent the right hand scalar.
+	\return a vec3 that has been scaled down by a factor of t.
+*/
 inline vec3 operator/(const vec3 &v, double t)
 {
 	return (1/t) * v;
 }
 
+//!	function to calculate the dot product of two vectors, resulting in a scalar.
+/*!
+	\param u vec3 to represent the left hand vector.
+	\param v vec3 to represent the right hand vector.
+	\return a double representing the dot product of u * v.
+*/
 inline double dot(const vec3 &u, const vec3 &v)
 {
 	return u.e[0] * v.e[0]
@@ -179,6 +226,12 @@ inline double dot(const vec3 &u, const vec3 &v)
 	     + u.e[2] * v.e[2];
 }
 
+//!	function to calculate the cross product of two vectors, resulting in a vector.
+/*!
+	\param u vec3 to represent the left hand vector.
+	\param v vec3 to represent the right hand vector.
+	\return a vec3 representing the cross product of u x v.
+*/
 inline vec3 cross(const vec3 &u, const vec3 &v)
 {
 	return vec3(u.e[1] * v.e[2] - u.e[2] * v.e[1],
@@ -186,6 +239,11 @@ inline vec3 cross(const vec3 &u, const vec3 &v)
 		    u.e[0] * v.e[1] - u.e[1] * v.e[0]);
 }
 
+//!	function to calculate the unit vector pointing the direction of v.
+/*!
+ * 	\param v vec3 vector to be used for calculating the unit vector.
+ * 	\return vec3 representing the unit vector.
+*/
 inline vec3 unit_vector(vec3 v)
 {
 	return v / v.length();
