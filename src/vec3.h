@@ -249,4 +249,41 @@ inline vec3 unit_vector(vec3 v)
 	return v / v.length();
 }
 
+//!	function to return a random vector.
+/*
+	\return a random vec3
+*/
+inline static vec3 random()
+{
+	return vec3(random_double(), random_double(), random_double());
+}
+
+//!	function to return a random vector with values in range min to max.
+/*
+	\param min double for the minimum value.
+	\param max double fro the maximum value.
+	\return a random vec3.
+*/
+inline static vec3 random(double min, double max)
+{
+	return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
+}
+
+//!	function to generate and return a random vector with length >= 1.
+/*
+	\return a vec3 random vec3.
+*/
+vec3 random_in_unit_sphere()
+{
+	for (;;)
+	{
+		auto p = random(-1,1);
+		if (p.length_squared() >= 1)
+		{
+			continue;
+		}
+		return p;
+	}
+}
+
 #endif
