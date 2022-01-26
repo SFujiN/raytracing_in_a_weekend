@@ -7,6 +7,12 @@
 #include <iostream>
 #include <fstream>
 
+//! A function that takes in two arguments, returns a color object.
+/*! 
+  \param r ray&, casted ray for drawing the scene.
+  \param world hittable&, hittable object representing objects in the world.
+  \return The color of the pixel to be drawn in the scene.
+ */
 color ray_color(const ray& r, const hittable& world)
 {
 	hit_record rec;
