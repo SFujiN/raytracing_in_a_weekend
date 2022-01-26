@@ -14,7 +14,9 @@ then cd to bin directory and run main.exe
 ```
 ~\bin>main.exe
 ```
-I'm practicing developing on Windows so watch out.
+this should output image.ppm in the data directory
+
+*I'm practicing developing on Windows so watch out.*
 
 
 ## Citation
