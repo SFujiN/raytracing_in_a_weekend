@@ -1,4 +1,4 @@
-d# Raytracing In A Weekend
+# Raytracing In A Weekend
 My run amok of raytracing in a weekend, purely for educational purposes. Cheers!
 
 # How to run
