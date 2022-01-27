@@ -132,6 +132,17 @@ typedef struct vec3
 		return e[0]*e[0] + e[1]*e[1] + e[2]*e[2];
 	}
 
+	//!	near_zero function to check if the vector is near zero in all dimensions.
+	/*!
+		\return bool determining if all dimensions are near zero.	
+	*/
+	bool near_zero() const
+	{
+		// Return true if the vecotr is close to zero in all dimensions.
+		const auto s = 1e-8;
+		return (fabs(e[0]) < s) && (fabs(e[1]) < s) && (fabs(e[2]) < s);
+	}
+
 } point3, color;
 
 // vec3 Utility Functions
@@ -310,6 +321,17 @@ vec3 random_in_hemisphere(const vec3& normal)
 	{
 		return -in_unit_sphere;
 	}
+}
+
+//!	function to return a vector that represents the reflection of an array on a surface.
+/*!
+	\param v vec3& to represent the ingoing ray.
+	\param n vec3& to represent the reflection surface.
+	\return vec3 the reflected ray.	
+*/
+vec3 reflect(const vec3& v, const vec3& n)
+{
+	return v - 2*dot(v,n)*n;
 }
 
 #endif

@@ -3,7 +3,7 @@
 
 #include "ray.h"
 
-typedef struct material;
+struct material;
 
 struct hit_record
 {
@@ -22,8 +22,6 @@ struct hit_record
 
 typedef struct hittable
 {
-	std::shared_ptr<material> mat_ptr;
-
 	virtual bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const = 0;
 } hittable;
 
