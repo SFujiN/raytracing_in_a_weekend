@@ -2,6 +2,6 @@
 
 mkdir ..\bin
 pushd ..\bin
-cl  /EHsc /Zi ..\src\main.cc
-Rem cl  /O2 ..\src\main.cc
+Rem cl /Zi ..\src\main.cc
+cl  /O2 ..\src\main.cc
 popd
