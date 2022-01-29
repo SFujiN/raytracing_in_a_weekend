@@ -50,7 +50,7 @@ typedef struct metal : material
  
 } metal;
 
-/*typedef struct dielectric : material
+typedef struct dielectric : material
 {
 	double ir;	// Index of Refraction
 
@@ -67,6 +67,6 @@ typedef struct metal : material
 		scattered = ray(rec.p, refracted);
 		return true;
 	}
-} dielectric;*/
+} dielectric;
 
 #endif
