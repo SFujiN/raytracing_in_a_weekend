@@ -71,7 +71,7 @@ int main() {
 //	auto material_left   = std::make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);
 	auto material_center = std::make_shared<dielectric>(1.5);
 	auto material_left   = std::make_shared<dielectric>(1.7);
-	auto material_right  = std::make_shared<metal>(color(0.8, 0.6, 0.2), 0.0);
+	auto material_right  = std::make_shared<metal>(color(0.8, 0.6, 0.2), 0.1);
 	
 	world.add(std::make_shared<sphere>(point3( 0.5,   0.0, -2),  0.5,     material_right));
 	world.add(std::make_shared<sphere>(point3( 0.0, -0.25, -1), 0.25,     material_center));
