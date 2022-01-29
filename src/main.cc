@@ -57,7 +57,7 @@ int main() {
 	// Image
 	
 	const auto aspect_ratio = 16.0 / 9.0;
-	const int image_width = 3840; // nHD: 640, qHD: 960, HD: 1280, Full HD: 1920, QHD: 2560, 4K UHD: 3840
+	const int image_width = 400; // nHD: 640, qHD: 960, HD: 1280, Full HD: 1920, QHD: 2560, 4K UHD: 3840
 	const int image_height = static_cast<int>(image_width / aspect_ratio);
 	const int samples_per_pixel = 100;
 	const int max_depth = 50;
@@ -74,7 +74,7 @@ int main() {
 	world.add(std::make_shared<sphere>(point3( 0.5,   0.0, -2),  0.5,     material_right));
 	world.add(std::make_shared<sphere>(point3( 0.0, -0.25, -1), 0.25,     material_center));
 	world.add(std::make_shared<sphere>(point3(-0.5,   0.0, -2),  0.5,     material_left));
-	world.add(std::make_shared<sphere>(point3( 0.0,-100.5, -2), 100.0,     material_ground));
+	world.add(std::make_shared<sphere>(point3( 0.0,-100.5, -2), 100.0,    material_ground));
 //	world.add(std::make_shared<sphere>(point3( 0.0,-3179.5,-2), 3178.5, material_ground));
 //	world.add(std::make_shared<sphere>(point3( 0.0, 0.0,      1), 0.5,    material_center));
 

@@ -140,7 +140,7 @@ typedef struct vec3
 	{
 		// Return true if the vecotr is close to zero in all dimensions.
 		const auto s = 1e-8;
-		return (fabs(e[0]) < s) && (fabs(e[1]) < s) && (fabs(e[2]) < s);
+		return (std::fabs(e[0]) < s) && (std::fabs(e[1]) < s) && (std::fabs(e[2]) < s);
 	}
 
 } point3, color;
@@ -332,6 +332,21 @@ vec3 random_in_hemisphere(const vec3& normal)
 vec3 reflect(const vec3& v, const vec3& n)
 {
 	return v - 2*dot(v,n)*n;
+}
+
+//!	function to calculate the refraction ray given an initial ray and ratio of refraction coefficient.
+/*!
+	\param uv vec3& the incoming ray.
+	\param n vec3& the normal to be refracted on.
+	\param etai_over_etat the ratio of the refraction coefficient between two mediums.
+	\return vec3 the refracted ray.
+*/
+vec3 refract(const vec3& uv, const vec3& n, double etai_over_etat)
+{
+	auto cos_theta = std::fmin(dot(-uv, n), 1.0);
+	vec3 r_out_perp = etai_over_etat * (uv + cos_theta*n);
+	vec3 r_out_parallel = -std::sqrt(std::fabs(1.0 - r_out_perp.length_squared())) * n;
+	return r_out_perp + r_out_parallel;
 }
 
 #endif
