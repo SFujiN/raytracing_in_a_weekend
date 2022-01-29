@@ -63,7 +63,8 @@ int main() {
 	const int max_depth = 50;
 
 	// World
-
+	
+//	auto R = cos(pi/4);
 	hittable_list world;
 
 	auto material_ground = std::make_shared<lambertian>(color(0.8, 0.8, 0.0));
@@ -85,7 +86,7 @@ int main() {
 
 	// Camera
 	
-	camera cam;
+	camera cam(90.0, aspect_ratio);
 	
 	// Render
 	
