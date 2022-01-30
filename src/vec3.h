@@ -323,6 +323,23 @@ vec3 random_in_hemisphere(const vec3& normal)
 	}
 }
 
+//!	function to return random unit in a disk, use for calculating depth of field.
+/*!
+	\return vec3 representing said unit in disk.
+*/
+vec3 random_in_unit_disk()
+{
+	while (true)
+	{
+		auto p = vec3(random_double(-1,1), random_double(-1,1), 0);
+		if (p.length_squared() >= 1)
+		{
+			continue;
+		}
+		return p;
+	}
+}
+
 //!	function to return a vector that represents the reflection of an array on a surface.
 /*!
 	\param v vec3& to represent the ingoing ray.
