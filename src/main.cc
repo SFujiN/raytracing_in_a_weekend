@@ -67,7 +67,7 @@ int main() {
 //	auto R = cos(pi/4);
 	hittable_list world;
 
-	auto material_ground = std::make_shared<lambertian>(color(0.8, 0.8, 0.0));
+	auto material_ground = std::make_shared<lambertian>(color(0.11, 0.21, 0.18));
 //	auto material_center = std::make_shared<lambertian>(color(0.7, 0.3, 0.3));
 //	auto material_left   = std::make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);
 	auto material_center = std::make_shared<dielectric>(1.5);
@@ -75,18 +75,24 @@ int main() {
 	auto material_left   = std::make_shared<dielectric>(1.7);
 	auto material_right  = std::make_shared<metal>(color(0.8, 0.6, 0.2), 0.1);
 	
-	world.add(std::make_shared<sphere>(point3( 0.5,   0.0, -2),   0.5,     material_right));
-	world.add(std::make_shared<sphere>(point3( 0.0, -0.25, -1),  0.25,     material_center));
-	world.add(std::make_shared<sphere>(point3( 0.0, -0.25, -1), -0.15,     material_water));
-	world.add(std::make_shared<sphere>(point3(-0.5,   0.0, -2),   0.5,     material_left));
-	world.add(std::make_shared<sphere>(point3(-0.5,   0.0, -2),  -0.3,     material_left));
-	world.add(std::make_shared<sphere>(point3( 0.0,-100.5, -2), 100.0,     material_ground));
+	world.add(std::make_shared<sphere>(point3( 0.5,   0.0, -1),   0.5,     material_right));
+	world.add(std::make_shared<sphere>(point3( 0.0, -0.25, -0),  0.25,     material_center));
+	world.add(std::make_shared<sphere>(point3( 0.0, -0.25, -0), -0.15,     material_water));
+	world.add(std::make_shared<sphere>(point3(-0.5,   0.0, -1),   0.5,     material_left));
+	world.add(std::make_shared<sphere>(point3(-0.5,   0.0, -1),  -0.3,     material_left));
+	world.add(std::make_shared<sphere>(point3( 0.0,-100.5, -1), 100.0,     material_ground));
 //	world.add(std::make_shared<sphere>(point3( 0.0,-3179.5,-2), 3178.5, material_ground));
 //	world.add(std::make_shared<sphere>(point3( 0.0, 0.0,      1), 0.5,    material_center));
 
 	// Camera
 	
-	camera cam(point3(-2,2,1), point3(0,0,-1), vec3(0,1,0), 20, aspect_ratio);
+	point3 lookfrom(3,3,2);
+	point3 lookat(0,0,-1);
+	vec3 vup(0,1,0);
+	auto dist_to_focus = (lookfrom-lookat).length();
+	auto aperture = 1.0;
+
+	camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
 	
 	// Render
 	
