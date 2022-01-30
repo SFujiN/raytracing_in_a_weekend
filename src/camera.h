@@ -23,7 +23,7 @@ typedef struct camera
 		lower_left_corner = origin - horizontal/2 - vertical/2 - vec3(0, 0, focal_length);
 	}
 
-	camera(point3 lookfrom, point3 lootat, vec3 vup, double vfov, double aspect_ratio)	// vfov: vertical field-of-view in degrees
+	camera(point3 lookfrom, point3 lookat, vec3 vup, double vfov, double aspect_ratio)	// vfov: vertical field-of-view in degrees
 	{
 		auto theta = degrees_to_radians(vfov);
 		auto h = tan(theta/2);
