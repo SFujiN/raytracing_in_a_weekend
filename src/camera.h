@@ -37,7 +37,7 @@ typedef struct camera
 		origin = lookfrom;
 		horizontal = viewport_width * u;
 		vertical = viewport_height * v;
-		lower_left_corner = orgin - horizontal/2 - vertical/2 -w;
+		lower_left_corner = origin - horizontal/2 - vertical/2 -w;
 	}
 
 	ray get_ray(double s, double t) const
