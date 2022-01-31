@@ -124,7 +124,7 @@ hittable_list my_scene()
 	return world;
 }
 
-void render(std::ostream& out, const camera& cam, const hittable_list& world, int image_width, int max_height, int min_height, int samples_per_pixel, int max_depth)
+void render(std::ostream& out, const camera& cam, const hittable_list& world, int image_width, int image_height, int max_height, int min_height, int samples_per_pixel, int max_depth)
 {
 	for (int j = max_height-1; j >= min_height; --j)
 	{
@@ -135,7 +135,7 @@ void render(std::ostream& out, const camera& cam, const hittable_list& world, in
 			for (int s = 0; s < samples_per_pixel; ++s)
 			{
 				auto u = (i + random_double()) / (image_width-1);
-				auto v = (j + random_double()) / (max_height-1);
+				auto v = (j + random_double()) / (image_height-1);
 				ray r = cam.get_ray(u, v);
 				pixel_color += ray_color(r, world, max_depth);
 			}
@@ -159,14 +159,14 @@ int main() {
 
 	// Image
 	const auto aspect_ratio = 16.0 / 9.0;
-	const size_t image_width = 1280; // nHD: 640, qHD: 960, HD: 1280, Full HD: 1920, QHD: 2560, 4K UHD: 3840
-	const size_t image_height = static_cast<int>(image_width / aspect_ratio);
-	const size_t samples_per_pixel = 500;
-	const size_t max_depth = 50;
+	const int image_width = 1280; // nHD: 640, qHD: 960, HD: 1280, Full HD: 1920, QHD: 2560, 4K UHD: 3840
+	const int image_height = static_cast<int>(image_width / aspect_ratio);
+	const int samples_per_pixel = 500;
+	const int max_depth = 50;
 
 	// World
-//	auto world = cover_scene();
-	auto world = my_scene();
+	auto world = cover_scene();
+//	auto world = my_scene();
 
 	// Camera
 	point3 lookfrom(13,2,3);
@@ -184,7 +184,7 @@ int main() {
 	{
 		int max_h = image_height * (num_threads - i) / num_threads;
 		int min_h = image_height * (num_threads - (i + 1)) / num_threads;
-		pool.push_back(std::thread(&render, std::ref(s_pool[i]), std::ref(cam), std::ref(world), image_width, max_h, min_h, samples_per_pixel, max_depth));
+		pool.push_back(std::thread(&render, std::ref(s_pool[i]), std::ref(cam), std::ref(world), image_width, image_height, max_h, min_h, samples_per_pixel, max_depth));
 	}
 
 	for (auto& th : pool)
