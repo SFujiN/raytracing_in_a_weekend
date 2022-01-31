@@ -166,8 +166,8 @@ int main() {
 	const int max_depth = 50;
 
 	// World
-//	auto world = cover_scene();
-	auto world = my_scene();
+	auto world = cover_scene();
+//	auto world = my_scene();
 	
 	auto material_ground = std::make_shared<lambertian>(color(1,0,0));
 	world.add(std::make_shared<triangle>(vec3(0,-0.25,0),vec3(1,-0.25,0),vec3(1,0.75,0),material_ground));
