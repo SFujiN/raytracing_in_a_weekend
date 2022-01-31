@@ -150,7 +150,7 @@ int main() {
 	char path[] = "..\\data\\my_image.ppm";
 
 	// Threads
-	size_t num_threads = 4; //std::thread::hardware_concurrency();
+	size_t num_threads = std::thread::hardware_concurrency();
 	std::vector<std::thread> pool;
 	std::vector<std::stringstream> s_pool(num_threads);
 	
