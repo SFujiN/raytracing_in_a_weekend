@@ -8,6 +8,9 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <thread>
+#include <vector>
 
 //! A function that takes in two arguments, returns a color object.
 /*! 
@@ -121,11 +124,9 @@ hittable_list my_scene()
 	return world;
 }
 
-void render(std::ostream& out, const camera& cam, const hittable_list& world, int image_width, int image_height, int samples_per_pixel, int max_depth)
+void render(std::ostream& out, const camera& cam, const hittable_list& world, int image_width, int max_height, int min_height, int samples_per_pixel, int max_depth)
 {
-	out << "P3\n" << image_width << ' ' << image_height << "\n255\n";
-
-	for (int j = image_height-1; j >= 0; --j)
+	for (int j = max_height-1; j >= min_height; --j)
 	{
 		std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
 		for (int i = 0; i < image_width; ++i)
@@ -134,7 +135,7 @@ void render(std::ostream& out, const camera& cam, const hittable_list& world, in
 			for (int s = 0; s < samples_per_pixel; ++s)
 			{
 				auto u = (i + random_double()) / (image_width-1);
-				auto v = (j + random_double()) / (image_height-1);
+				auto v = (j + random_double()) / (max_height-1);
 				ray r = cam.get_ray(u, v);
 				pixel_color += ray_color(r, world, max_depth);
 			}
@@ -147,25 +148,27 @@ int main() {
 	// File
 	std::ofstream helloFile;
 	char path[] = "..\\data\\my_image.ppm";
+
+	// Threads
+	size_t num_threads = 4; //std::thread::hardware_concurrency();
+	std::vector<std::thread> pool;
+	std::vector<std::stringstream> s_pool(num_threads);
 	
 	// TODO: Fool proof file io
 	helloFile.open(path);
 
 	// Image
-	
-	const auto aspect_ratio = 3.0 / 2.0; //16.0 / 9.0;
-	const int image_width = 1280; // nHD: 640, qHD: 960, HD: 1280, Full HD: 1920, QHD: 2560, 4K UHD: 3840
-	const int image_height = static_cast<int>(image_width / aspect_ratio);
-	const int samples_per_pixel = 500;
-	const int max_depth = 50;
+	const auto aspect_ratio = 16.0 / 9.0;
+	const size_t image_width = 1280; // nHD: 640, qHD: 960, HD: 1280, Full HD: 1920, QHD: 2560, 4K UHD: 3840
+	const size_t image_height = static_cast<int>(image_width / aspect_ratio);
+	const size_t samples_per_pixel = 500;
+	const size_t max_depth = 50;
 
 	// World
-	
 //	auto world = cover_scene();
 	auto world = my_scene();
 
 	// Camera
-	
 	point3 lookfrom(13,2,3);
 	point3 lookat(0,0,0);
 	vec3 vup(0,1,0);
@@ -175,30 +178,26 @@ int main() {
 	camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
 	
 	// Render
-
-	render(helloFile, cam, world, image_width, image_height, samples_per_pixel, max_depth);
-	/*	
 	helloFile << "P3\n" << image_width << ' ' << image_height << "\n255\n";
-
-	for (int j = image_height-1; j >= 0; --j)
+	
+	for (size_t i = 0; i < num_threads; i++)
 	{
-		std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
-		for (int i = 0; i < image_width; ++i)
-		{
-			color pixel_color(0, 0, 0);
-			for (int s = 0; s < samples_per_pixel; ++s)
-			{
-				auto u = (i + random_double()) / (image_width-1);
-				auto v = (j + random_double()) / (image_height-1);
-				ray r = cam.get_ray(u, v);
-				pixel_color += ray_color(r, world, max_depth);
-			}
-//			color pixel_color(double(i)/(image_width-1), double(j)/(image_height-1), 0.25);	// color gradient
-//			color pixel_color(0,0,0);							// black
-			write_color(helloFile, pixel_color, samples_per_pixel);
-		}
+		int max_h = image_height * (num_threads - i) / num_threads;
+		int min_h = image_height * (num_threads - (i + 1)) / num_threads;
+		pool.push_back(std::thread(&render, std::ref(s_pool[i]), std::ref(cam), std::ref(world), image_width, max_h, min_h, samples_per_pixel, max_depth));
 	}
-	*/
+
+	for (auto& th : pool)
+	{
+		th.join();
+	}
+
+	for (auto& ss : s_pool)
+	{
+		helloFile << ss.str();
+	}
+
+//	render(ss, cam, world, image_width, image_height, samples_per_pixel, max_depth);
 
 	helloFile.close();
 
