@@ -17,7 +17,7 @@ then cd to bin directory and run main.exe
 this should output image.ppm in the data directory
 
 ex.
-![nHD resolution render](https://github.com/SFujiN/raytracing_in_a_weekend/blob/main/data/image.ppm)
+![nHD resolution render](https://github.com/SFujiN/raytracing_in_a_weekend/blob/main/data/my_image.ppm)
 
 # Specs
 
