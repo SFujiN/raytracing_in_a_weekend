@@ -18,9 +18,15 @@ this should output image.ppm in the data directory
 
 *I'm practicing developing on Windows so watch out.*
 
-# Render times
+# Specs
 
-final scene 4k: 01:30:24:244
+CPU: Intel Core i9-9900k @ 3.60GHz
+
+# Render times of final scene
+
+nHD:	00:02:34:753
+qHD:	00:05:36:171
+4k UHD: 01:30:24:244
 
 ## Citations
 - Ray tracing in One Weekend:
