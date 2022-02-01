@@ -148,7 +148,7 @@ void render(std::ostream& out, const camera& cam, const hittable_list& world, in
 int main() {
 	// File
 	std::ofstream helloFile;
-	char path[] = "..\\data\\my_image.ppm";
+	char path[] = "../data/image.ppm";
 
 	// Threads
 	size_t num_threads = std::thread::hardware_concurrency();
