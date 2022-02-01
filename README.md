@@ -18,6 +18,9 @@ this should output image.ppm in the data directory
 
 *I'm practicing developing on Windows so watch out.*
 
+# Render times
+
+final scene 4k: 01:30:24:244
 
 ## Citation
 Ray Tracing in One Weekend. raytracing.github.io/books/RayTracingInOneWeekend.html
