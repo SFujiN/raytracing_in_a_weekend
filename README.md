@@ -22,6 +22,10 @@ this should output image.ppm in the data directory
 
 final scene 4k: 01:30:24:244
 
-## Citation
+## Citations
+- Ray tracing in One Weekend:
 Ray Tracing in One Weekend. raytracing.github.io/books/RayTracingInOneWeekend.html
 Accessed 25 001. 2022
+
+- Triangle Rendering (Möller-Trumbore intersection algorithm)
+https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
