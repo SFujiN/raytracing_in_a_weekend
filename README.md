@@ -28,7 +28,7 @@ CPU: Intel Core i9-9900k @ 3.60GHz
 | HD         | 00:10:09:192 |
 | Full HD    | 00:22:44:677 |
 | QHD        | 00:41:00:254 |
-| 4k UHD     | 01:30:24:244 |
+| 4K UHD     | 01:30:24:244 |
 
 ## Citations
 - Ray tracing in One Weekend:
