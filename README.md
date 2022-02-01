@@ -17,6 +17,7 @@ then cd to bin directory and run main.exe
 this should output image.ppm in the data directory
 
 ex.
+
 ![nHD resolution render](./data/my_image.png)
 
 # Specs
