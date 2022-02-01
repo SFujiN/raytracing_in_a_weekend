@@ -16,8 +16,6 @@ then cd to bin directory and run main.exe
 ```
 this should output image.ppm in the data directory
 
-*I'm practicing developing on Windows so watch out.*
-
 # Specs
 
 CPU: Intel Core i9-9900k @ 3.60GHz
