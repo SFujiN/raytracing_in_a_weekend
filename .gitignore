@@ -1,4 +1,4 @@
 /bin
 /data
-/data/*.ppm
+/data/image.ppm
 *~
