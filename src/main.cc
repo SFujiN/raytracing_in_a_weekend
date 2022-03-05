@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <omp.h>
 #include <sstream>
 #include <thread>
 #include <vector>
@@ -153,9 +154,9 @@ int main() {
 	char path[] = "../data/image.ppm";
 
 	// Threads
-	size_t num_threads = std::thread::hardware_concurrency();
-	std::vector<std::thread> pool;
-	std::vector<std::stringstream> s_pool(num_threads);
+//	size_t num_threads = std::thread::hardware_concurrency();
+//	std::vector<std::thread> pool;
+//	std::vector<std::stringstream> s_pool(num_threads);
 	
 	// TODO: Fool proof file io
 	helloFile.open(path);
@@ -185,13 +186,15 @@ int main() {
 	
 	// Render
 	helloFile << "P3\n" << image_width << ' ' << image_height << "\n255\n";
-	
+
+/*	
 	for (size_t i = 0; i < num_threads; i++)
 	{
 		int max_h = image_height * (num_threads - i) / num_threads;
 		int min_h = image_height * (num_threads - (i + 1)) / num_threads;
 		pool.push_back(std::thread(&render, std::ref(s_pool[i]), std::ref(cam), std::ref(world), image_width, image_height, max_h, min_h, samples_per_pixel, max_depth));
 	}
+
 
 	for (auto& th : pool)
 	{
@@ -202,8 +205,26 @@ int main() {
 	{
 		helloFile << ss.str();
 	}
-
+*/
 //	render(ss, cam, world, image_width, image_height, samples_per_pixel, max_depth);
+
+	#pragma omp parallel for
+	for (int j = image_height; j >= 0; --j)
+	{
+		std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
+		for (int i = 0; i < image_width; ++i)
+		{
+			color pixel_color(0, 0, 0);
+			for (int s = 0; s < samples_per_pixel; ++s)
+			{
+				auto u = (i + random_double()) / (image_width-1);
+				auto v = (j + random_double()) / (image_height-1);
+				ray r = cam.get_ray(u, v);
+				pixel_color += ray_color(r, world, max_depth);
+			}
+			write_color(helloFile, pixel_color, samples_per_pixel);
+		}
+	}
 
 	helloFile.close();
 
