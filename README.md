@@ -1,5 +1,5 @@
 # Raytracing In A Weekend
-My run amok of raytracing in a weekend, purely for educational purposes. Cheers!\n
+My run amok of raytracing in a weekend, purely for educational purposes. Cheers!  
 This project was made using a batchfile, to sorta challenge myself to work on Windows 10. I'll probably revisit this for unix systems
 
 # How to run
