@@ -37,7 +37,7 @@ CPU: Intel Core i9-9900k @ 3.60GHz
 
 ## Citations
 - Ray tracing in One Weekend:
-Ray Tracing in One Weekend. raytracing.github.io/books/RayTracingInOneWeekend.html
+Ray Tracing in One Weekend. https://raytracing.github.io/books/RayTracingInOneWeekend.html
 Accessed 25 001. 2022
 
 - Triangle Rendering (Möller-Trumbore intersection algorithm):
